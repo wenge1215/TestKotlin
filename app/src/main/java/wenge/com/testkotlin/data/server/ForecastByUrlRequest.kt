@@ -1,11 +1,11 @@
-package wenge.com.testkotlin.data.setver
+package wenge.com.testkotlin.data.server
 
 import com.google.gson.Gson
 import java.net.URL
 
 /**
  * Created by WENGE on 2017/8/18.
- * 备注：
+ * 备注：网络请求并解析jsonString
  */
 
 

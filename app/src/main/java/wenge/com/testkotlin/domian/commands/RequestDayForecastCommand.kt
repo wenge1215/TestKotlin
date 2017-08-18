@@ -1,6 +1,6 @@
 package wenge.com.testkotlin.domian.commands
 
-import wenge.com.testkotlin.data.setver.ServerDataMapper
+import wenge.com.testkotlin.data.server.ServerDataMapper
 import wenge.com.testkotlin.domian.model.ForecastList
 import wenge.com.testkotlin.net.Request
 

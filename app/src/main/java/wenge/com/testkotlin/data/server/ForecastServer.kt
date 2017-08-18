@@ -1,4 +1,4 @@
-package wenge.com.testkotlin.data.setver
+package wenge.com.testkotlin.data.server
 
 import com.antonioleiva.weatherapp.domain.datasource.ForecastDataSource
 import wenge.com.testkotlin.domian.model.ForecastList

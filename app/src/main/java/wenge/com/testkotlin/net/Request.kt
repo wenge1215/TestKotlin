@@ -2,7 +2,7 @@ package wenge.com.testkotlin.net
 
 import android.util.Log
 import com.google.gson.Gson
-import wenge.com.testkotlin.data.setver.ForecastResult
+import wenge.com.testkotlin.data.server.ForecastResult
 import java.net.URL
 
 /**

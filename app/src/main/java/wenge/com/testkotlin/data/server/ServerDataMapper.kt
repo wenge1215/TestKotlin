@@ -1,4 +1,4 @@
-package wenge.com.testkotlin.data.setver
+package wenge.com.testkotlin.data.server
 
 
 import wenge.com.testkotlin.domian.model.ForecastList

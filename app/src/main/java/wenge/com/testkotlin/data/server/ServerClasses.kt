@@ -1,4 +1,4 @@
-package wenge.com.testkotlin.data.setver
+package wenge.com.testkotlin.data.server
 
 /**
  * Created by WENGE on 2017/8/18.
