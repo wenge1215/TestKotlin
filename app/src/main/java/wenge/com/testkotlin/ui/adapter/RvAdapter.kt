@@ -42,5 +42,4 @@ class RvAdapter(val weekForecast: ForecastList, val itemClick: (Forecast) -> Uni
             }
         }
     }
-
 }
