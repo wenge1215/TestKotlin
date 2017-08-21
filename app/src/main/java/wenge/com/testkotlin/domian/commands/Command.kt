@@ -1,5 +1,7 @@
 package wenge.com.testkotlin.domian.commands
 
+import wenge.com.testkotlin.domian.model.Forecast
+
 
 /**
  * Created by WENGE on 2017/8/17.
@@ -8,5 +10,6 @@ package wenge.com.testkotlin.domian.commands
 public interface Command<T> {
     fun execute() : T
 }
+
 
 

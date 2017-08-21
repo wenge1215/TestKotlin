@@ -8,13 +8,18 @@ import android.widget.TextView
 import android.widget.Toast
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import wenge.com.testkotlin.R
 import wenge.com.testkotlin.TestMach
 import wenge.com.testkotlin.domian.commands.RequestForecastCommand
+import wenge.com.testkotlin.domian.model.Forecast
 import wenge.com.testkotlin.ui.adapter.RvAdapter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RvAdapter.OnItemClickListener {
+    override fun invoke(forecast: Forecast) {
+        toast(forecast.date)
+    }
 
     /**
      * 扩展属性
@@ -55,10 +60,9 @@ class MainActivity : AppCompatActivity() {
 
             val forecastList = RequestForecastCommand(url).execute()
             uiThread {
-                rvList.adapter = RvAdapter(forecastList)        //相当于setAdapter
+                rvList.adapter = RvAdapter(forecastList,this@MainActivity)        //相当于setAdapter
             }
         }
-
     }
 
     fun toast1(message: String, length: Int = Toast.LENGTH_SHORT) {
@@ -71,6 +75,10 @@ class MainActivity : AppCompatActivity() {
                   length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, "[$localClassName] $message", length).show()
     }
+
+
+
+
 
 }
 
