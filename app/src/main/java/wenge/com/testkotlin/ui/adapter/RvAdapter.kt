@@ -17,7 +17,8 @@ import wenge.com.testkotlin.domian.model.ForecastList
  * 备注：
  */
 
-class RvAdapter(val weekForecast: ForecastList, val itemClick: RvAdapter.OnItemClickListener) : RecyclerView.Adapter<RvAdapter.Viewholder>() {
+//class RvAdapter(val weekForecast: ForecastList, val itemClick: RvAdapter.OnItemClickListener) : RecyclerView.Adapter<RvAdapter.Viewholder>() {
+class RvAdapter(val weekForecast: ForecastList, val itemClick: (Forecast) -> Unit) : RecyclerView.Adapter<RvAdapter.Viewholder>() {
     override fun onBindViewHolder(holder: Viewholder?, position: Int) {
 //        with(weekForecast.dailyForecast[position]) {
 //            holder!!.textView.text="$date - $description - $high/$low"
@@ -38,7 +39,8 @@ class RvAdapter(val weekForecast: ForecastList, val itemClick: RvAdapter.OnItemC
         return Viewholder(view, itemClick)
     }
 
-    class Viewholder(view: View, val itemClick: OnItemClickListener) : RecyclerView.ViewHolder(view) {
+//    class Viewholder(view: View, val itemClick: OnItemClickListener) : RecyclerView.ViewHolder(view) {
+    class Viewholder(view: View, val itemClick: (Forecast) -> Unit) : RecyclerView.ViewHolder(view) {
         private val iconView: ImageView
         private val dateView: TextView
         private val descriptionView: TextView
@@ -72,7 +74,7 @@ class RvAdapter(val weekForecast: ForecastList, val itemClick: RvAdapter.OnItemC
         }
     }
 
-    public interface OnItemClickListener {
-        operator fun invoke(forecast: Forecast)
-    }
+//    public interface OnItemClickListener {
+//        operator fun invoke(forecast: Forecast)
+//    }
 }

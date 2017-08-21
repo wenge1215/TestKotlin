@@ -12,17 +12,16 @@ import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import wenge.com.testkotlin.R
 import wenge.com.testkotlin.domian.commands.RequestForecastCommand
-import wenge.com.testkotlin.domian.model.Forecast
 import wenge.com.testkotlin.ui.adapter.RvAdapter
 
-class MainActivity : AppCompatActivity(), RvAdapter.OnItemClickListener {
+class MainActivity : AppCompatActivity(){
 
-    /**
-     * 实现点击事件的接口
-     */
-    override fun invoke(forecast: Forecast) {
-        toast(forecast.date)
-    }
+//    /**
+//     * 实现点击事件的接口
+//     */
+//    override fun invoke(forecast: Forecast) {
+//        toast(forecast.date)
+//    }
 
     /**
      * 扩展属性
@@ -48,11 +47,12 @@ class MainActivity : AppCompatActivity(), RvAdapter.OnItemClickListener {
 
             val forecastList = RequestForecastCommand(url).execute()        //获取项目所需的实体对象
             uiThread {
-                /**
-                 * ForecastList ：数据源
-                 * OnItemClickListener：监听器
-                 */
-                rvList.adapter = RvAdapter(forecastList,this@MainActivity)        //更新UI相当于setAdapter
+//                /**
+//                 * ForecastList ：数据源
+//                 * OnItemClickListener：监听器
+//                 */
+////                rvList.adapter = RvAdapter(forecastList,this@MainActivity)
+                rvList.adapter = RvAdapter(forecastList){toast(it.date)}   //相当于 rvList.setAdapter(new RvAdapter(forecastList))
             }
         }
     }
