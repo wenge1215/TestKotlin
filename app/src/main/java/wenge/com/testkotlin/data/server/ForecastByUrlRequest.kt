@@ -13,6 +13,6 @@ class ForecastByUrlRequest(val url: String, val gson: Gson = Gson()) {
 
     fun execute(): ForecastResult {
         val jsonString = URL(url).readText()
-        return gson.fromJson(jsonString, ForecastResult::class.java)
+        return gson.fromJson(jsonString, ForecastResult::class.java)        //将JsonString 转换为实体对对象
     }
 }

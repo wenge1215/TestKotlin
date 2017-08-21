@@ -7,7 +7,7 @@ import java.net.URL
 
 /**
  * Created by WENGE on 2017/8/17.
- * 备注：
+ * 备注：网络请求
  */
 
 
@@ -21,7 +21,7 @@ public class Request(val url: String) {
     }
 
     /**
-     *
+     * 执行网络请求，并将结果转换为实体对象
      */
     fun execute(): ForecastResult {
         val forecastJsonStr = URL(url).readText()

@@ -3,7 +3,7 @@ package wenge.com.testkotlin.domian.model
 
 /**
  * Created by WENGE on 2017/8/18.
- * 备注：
+ * 备注：跟符合项目需求的对象实体（天气列表）
  */
 data class ForecastList(val city: String, val country: String,
                         val dailyForecast: List<Forecast>) {

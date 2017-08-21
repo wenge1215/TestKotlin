@@ -11,12 +11,15 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import wenge.com.testkotlin.R
-import wenge.com.testkotlin.TestMach
 import wenge.com.testkotlin.domian.commands.RequestForecastCommand
 import wenge.com.testkotlin.domian.model.Forecast
 import wenge.com.testkotlin.ui.adapter.RvAdapter
 
 class MainActivity : AppCompatActivity(), RvAdapter.OnItemClickListener {
+
+    /**
+     * 实现点击事件的接口
+     */
     override fun invoke(forecast: Forecast) {
         toast(forecast.date)
     }
@@ -28,17 +31,6 @@ class MainActivity : AppCompatActivity(), RvAdapter.OnItemClickListener {
         get() = getText()
         set(value) = setText(value)
 
-
-    private val items = listOf<String>(
-            "Mon 6/23 - Sunny - 31/17",
-            "Tue 6/24 - Foggy - 21/8",
-            "Wed 6/25 - Cloudy - 22/17",
-            "Thurs 6/26 - Rainy - 18/11",
-            "Fri 6/27 - Foggy - 21/10",
-            "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-            "Sun 6/29 - Sunny - 20/7"
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,22 +40,29 @@ class MainActivity : AppCompatActivity(), RvAdapter.OnItemClickListener {
         rvList.layoutManager = LinearLayoutManager(this);
 //        rvList.adapter = RvAdapter(items)
 
-        val testMach = TestMach()
-        val add = testMach.add(15, 25)
-        println(add)
-
         /**
          * 线程切换
          */
         doAsync {
             val url: String = "http://samples.openweathermap.org/data/2.5/forecast/daily?id=524901&appid=b1b15e88fa797225412429c1c50c122a1"
 
-            val forecastList = RequestForecastCommand(url).execute()
+            val forecastList = RequestForecastCommand(url).execute()        //获取项目所需的实体对象
             uiThread {
-                rvList.adapter = RvAdapter(forecastList,this@MainActivity)        //相当于setAdapter
+                /**
+                 * ForecastList ：数据源
+                 * OnItemClickListener：监听器
+                 */
+                rvList.adapter = RvAdapter(forecastList,this@MainActivity)        //更新UI相当于setAdapter
             }
         }
     }
+
+
+
+
+
+
+
 
     fun toast1(message: String, length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, message, length).show()
@@ -75,11 +74,6 @@ class MainActivity : AppCompatActivity(), RvAdapter.OnItemClickListener {
                   length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, "[$localClassName] $message", length).show()
     }
-
-
-
-
-
 }
 
 

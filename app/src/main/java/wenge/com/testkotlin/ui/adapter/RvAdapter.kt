@@ -38,7 +38,6 @@ class RvAdapter(val weekForecast: ForecastList, val itemClick: RvAdapter.OnItemC
         return Viewholder(view, itemClick)
     }
 
-    //    class Viewholder(val textView :TextView):RecyclerView.ViewHolder(textView)
     class Viewholder(view: View, val itemClick: OnItemClickListener) : RecyclerView.ViewHolder(view) {
         private val iconView: ImageView
         private val dateView: TextView
@@ -46,6 +45,9 @@ class RvAdapter(val weekForecast: ForecastList, val itemClick: RvAdapter.OnItemC
         private val maxTemperatureView: TextView
         private val minTemperatureView: TextView
 
+        /**
+         * 初始化控件
+         */
         init {
             iconView = view.find(R.id.icon)
             dateView = view.find(R.id.date)
@@ -54,6 +56,10 @@ class RvAdapter(val weekForecast: ForecastList, val itemClick: RvAdapter.OnItemC
             minTemperatureView = view.find(R.id.minTemperature)
         }
 
+        /**
+         * 控件与数据绑定
+         * @parms:forecast 数据源
+         */
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
                 ImageLoadUtils.display(itemView.context, iconView, iconUrl)

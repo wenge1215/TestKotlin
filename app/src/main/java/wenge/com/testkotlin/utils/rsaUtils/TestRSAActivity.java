@@ -62,8 +62,6 @@ public class TestRSAActivity extends Activity implements OnClickListener
 
       RSAUtils.printPrivateKeyInfo(mAPrivate);
       RSAUtils.printPublicKeyInfo(mAPublic);
-
-
     }
 
 	private void initView()

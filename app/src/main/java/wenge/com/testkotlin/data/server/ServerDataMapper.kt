@@ -4,11 +4,11 @@ package wenge.com.testkotlin.data.server
 import wenge.com.testkotlin.domian.model.ForecastList
 import java.text.DateFormat
 import java.util.*
-import wenge.com.testkotlin.domian.model.Forecast as ModelForecast
+import wenge.com.testkotlin.domian.model.Forecast as ModelForecast      //给相同的对象名指定别名
 
 /**
  * Created by WENGE on 2017/8/18.
- * 备注：
+ * 备注：将实体对象的属性转换为指定类型
  */
 
 
@@ -21,6 +21,10 @@ public class ServerDataMapper {
     fun convertForecastListToDomain(list:List<Forecast>):List<ModelForecast>{
         return list.map { convertForecastItemToDomain(it)}
     }
+
+    /**
+     * 将网络请求的对象装换为所需对象
+     */
     private fun convertForecastItemToDomain(forecast: Forecast): ModelForecast {
         return ModelForecast(convertDate(forecast.dt),
                 forecast.weather[0].description, forecast.temp.max.toInt(),
@@ -31,5 +35,8 @@ public class ServerDataMapper {
         return df.format(date * 1000)
     }
 
+    /**
+     * 拼接icon地址
+     */
     private fun generateIconUrl(iconCode: String) = "http://openweathermap.org/img/w/$iconCode.png"
 }
