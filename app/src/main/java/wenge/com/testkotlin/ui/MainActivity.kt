@@ -3,21 +3,27 @@ package wenge.com.testkotlin.ui
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.Toolbar
 import android.widget.TextView
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
+import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 import wenge.com.testkotlin.R
 import wenge.com.testkotlin.domian.commands.RequestForecastCommand
 import wenge.com.testkotlin.domian.model.ForecastList
 import wenge.com.testkotlin.extensions.DelegatesExt
+import wenge.com.testkotlin.extensions.toDateString
 import wenge.com.testkotlin.ui.adapter.RvAdapter
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ToolbarManager {
+
+    override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
+
     val ZIP_CODE = "zipCode"
     val DEFAULT_ZIP = 94043L
     val zipCode: Long by DelegatesExt.preference(this, ZIP_CODE, DEFAULT_ZIP)
@@ -39,8 +45,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initToolbar()
 
         fList.layoutManager = LinearLayoutManager(this)
+        attachToScroll(fList)
 
 //        /**
 //         * 线程切换
@@ -76,24 +84,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUI(weekForecast: ForecastList) {
         fList.adapter = RvAdapter(weekForecast) {
+            toast(it.date.toDateString())
             startActivity<DetialActivity>(
                     DetialActivity.ID to it.id,
                     DetialActivity.CITY_NAME to weekForecast.city)
         }
+        toolbarTitle = "${weekForecast.city} (${weekForecast.country})"
     }
 
-
-
-        fun toast1(message: String, length: Int = Toast.LENGTH_SHORT) {
-            Toast.makeText(this, message, length).show()
-        }
-
-
-        fun niceToast(message: String,
-                      tag: String = javaClass.simpleName,
-                      length: Int = Toast.LENGTH_SHORT) {
-            Toast.makeText(this, "[$localClassName] $message", length).show()
-        }
-    }
+}
 
 

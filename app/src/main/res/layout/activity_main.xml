@@ -17,5 +17,5 @@
             android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
     </FrameLayout>
 
-
+    <include layout="@layout/toolbar"/>
 </android.support.constraint.ConstraintLayout>
