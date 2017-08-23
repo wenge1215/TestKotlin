@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.layout_rv_item.view.*
 import wenge.com.testkotlin.R
 import wenge.com.testkotlin.domian.model.Forecast
 import wenge.com.testkotlin.domian.model.ForecastList
+import wenge.com.testkotlin.extensions.toDateString
 
 /**
  * Created by WENGE on 2017/8/17.
@@ -20,7 +21,7 @@ class RvAdapter(val weekForecast: ForecastList, val itemClick: (Forecast) -> Uni
         holder!!.bindForecast(weekForecast[position])
     }
 
-    override fun getItemCount(): Int = weekForecast.size()
+    override fun getItemCount(): Int = weekForecast.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Viewholder {
         val view = LayoutInflater.from(parent!!.context).inflate(R.layout.layout_rv_item, parent, false)
@@ -34,7 +35,7 @@ class RvAdapter(val weekForecast: ForecastList, val itemClick: (Forecast) -> Uni
         fun bindForecast(forecast: Forecast) {
             with(forecast){
                 ImageLoadUtils.display(itemView.context, itemView.icon, iconUrl)
-                itemView.date.text = date
+                itemView.date.text = date.toDateString()
                 itemView.description.text = description
                 itemView.maxTemperature.text = "${high.toString()}"
                 itemView.minTemperature.text = "${low.toString()}"

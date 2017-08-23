@@ -9,7 +9,7 @@ object CityForecastTable{
     val NAME = "CityForecast"
     val ID = "_id"
     val CITY = "city"
-    val COUNTRY = "COUNTRY"
+    val COUNTRY = "country"
 }
 
 object DayForecastTable {

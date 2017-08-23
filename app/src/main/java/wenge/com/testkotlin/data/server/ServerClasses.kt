@@ -12,7 +12,7 @@ package wenge.com.testkotlin.data.server
  */
 
 data class ForecastResult(val city: City, val cnt: Int, val cod: Int,
-                          val message: Int, val list: List<Forecast>)
+                          val message: Float, val list: List<Forecast>)
 
 data class City(val id: Long, val country: String, val iso: String,
                 val lat: Float, val lon: Float, val name: String,

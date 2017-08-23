@@ -2,9 +2,9 @@ package wenge.com.testkotlin.data.server
 
 
 import wenge.com.testkotlin.domian.model.ForecastList
-import java.text.DateFormat
 import java.util.*
-import wenge.com.testkotlin.domian.model.Forecast as ModelForecast      //给相同的对象名指定别名
+import java.util.concurrent.TimeUnit
+import wenge.com.testkotlin.domian.model.Forecast as ModelForecast
 
 /**
  * Created by WENGE on 2017/8/18.
@@ -12,31 +12,23 @@ import wenge.com.testkotlin.domian.model.Forecast as ModelForecast      //给相
  */
 
 
+class ServerDataMapper {
 
-public class ServerDataMapper {
-    fun convertFromDataModel(forecast: ForecastResult): ForecastList {
-        return ForecastList(forecast.city.name, forecast.city.country,
-                convertForecastListToDomain(forecast.list))
-    }
-    fun convertForecastListToDomain(list:List<Forecast>):List<ModelForecast>{
-        return list.map { convertForecastItemToDomain(it)}
+    fun convertToDomain(zipCode: Long, forecast: ForecastResult) = with(forecast) {
+        ForecastList(zipCode, city.name, city.country, convertForecastListToDomain(list))
     }
 
-    /**
-     * 将网络请求的对象装换为所需对象
-     */
-    private fun convertForecastItemToDomain(forecast: Forecast): ModelForecast {
-        return ModelForecast(convertDate(forecast.dt),
-                forecast.weather[0].description, forecast.temp.max.toInt(),
-                forecast.temp.min.toInt(), generateIconUrl(forecast.weather[0].icon))
-    }
-    private fun convertDate(date: Long): String {  //格式时间
-        val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-        return df.format(date * 1000)
+    private fun convertForecastListToDomain(list: List<Forecast>): List<ModelForecast> {
+        return list.mapIndexed { i, forecast ->
+            val dt = Calendar.getInstance().timeInMillis + TimeUnit.DAYS.toMillis(i.toLong())
+            convertForecastItemToDomain(forecast.copy(dt = dt))
+        }
     }
 
-    /**
-     * 拼接icon地址
-     */
+    private fun convertForecastItemToDomain(forecast: Forecast) = with(forecast) {
+        ModelForecast(-1, dt, weather[0].description, temp.max.toInt(), temp.min.toInt(),
+                generateIconUrl(weather[0].icon))
+    }
+
     private fun generateIconUrl(iconCode: String) = "http://openweathermap.org/img/w/$iconCode.png"
 }
