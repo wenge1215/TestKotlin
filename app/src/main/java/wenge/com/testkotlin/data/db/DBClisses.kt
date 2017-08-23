@@ -18,15 +18,6 @@ class CityForecast(val map: MutableMap<String, Any?>, val dailyForecast: List<Da
     }
 
 }
-//
-//val NAME = "DayForecast"
-//val ID = "_id"
-//val DATE = "date"
-//val DESCRIPTION = "description"
-//val HIGH = "high"
-//val LOW = "low"
-//val ICON_URL = "iconUrl"
-//val CITY_ID = "cityId"
 
 class DayForecast(var map: MutableMap<String, Any?>) {
     var _id :Long by map

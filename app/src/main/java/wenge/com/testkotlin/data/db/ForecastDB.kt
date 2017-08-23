@@ -13,6 +13,9 @@ import java.util.*
  */
 
 class ForecastDB(val forecastOpenHelper: ForecastOpenHelper = ForecastOpenHelper.instance, val dateMapper: DBDateMapper = DBDateMapper()): ForecastDataSource {
+    /**
+     * 通过ID查询数据库获取数据
+     */
     override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastOpenHelper.use {
 
         val dailyRequest = "${DayForecastTable.CITY_ID} = ? AND ${DayForecastTable.DATE} >= ?"

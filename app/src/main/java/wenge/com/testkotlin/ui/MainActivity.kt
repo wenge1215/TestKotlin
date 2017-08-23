@@ -9,12 +9,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 import org.jetbrains.anko.coroutines.experimental.bg
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.startActivity
 import wenge.com.testkotlin.R
 import wenge.com.testkotlin.domian.commands.RequestForecastCommand
 import wenge.com.testkotlin.domian.model.ForecastList
 import wenge.com.testkotlin.extensions.DelegatesExt
-import wenge.com.testkotlin.extensions.toDateString
 import wenge.com.testkotlin.ui.adapter.RvAdapter
 
 
@@ -69,28 +68,32 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    private fun loadForecast() = async(UI){
+    private fun loadForecast() = async(UI) {
         val result = bg { RequestForecastCommand(zipCode).execute() }
         updateUI(result.await())
 
     }
 
     private fun updateUI(weekForecast: ForecastList) {
-        fList.adapter = RvAdapter(weekForecast){toast(it.date.toDateString())}
+        fList.adapter = RvAdapter(weekForecast) {
+            startActivity<DetialActivity>(
+                    DetialActivity.ID to it.id,
+                    DetialActivity.CITY_NAME to weekForecast.city)
+        }
     }
 
 
-    fun toast1(message: String, length: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(this, message, length).show()
-    }
+
+        fun toast1(message: String, length: Int = Toast.LENGTH_SHORT) {
+            Toast.makeText(this, message, length).show()
+        }
 
 
-    fun niceToast(message: String,
-                  tag: String = javaClass.simpleName,
-                  length: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(this, "[$localClassName] $message", length).show()
+        fun niceToast(message: String,
+                      tag: String = javaClass.simpleName,
+                      length: Int = Toast.LENGTH_SHORT) {
+            Toast.makeText(this, "[$localClassName] $message", length).show()
+        }
     }
-}
 
 

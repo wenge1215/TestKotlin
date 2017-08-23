@@ -18,11 +18,17 @@ class ForecastProvider(val sources: List<ForecastDataSource> = ForecastProvider.
         val SOURCES by lazy { listOf(ForecastDB(), ForecastServer()) }
     }
 
+    /**
+     * 通过城市ID获取数据
+     */
     fun requestByZipCode(zipCode: Long, days: Int): ForecastList = requestToSources {
         val res = it.requestForecastByZipCode(zipCode, todayTimeSpan())
         if (res != null && res.size >= days) res else null
     }
 
+    /**
+     * 获取被点击条目的数据
+     */
     fun requestForecast(id: Long): Forecast = requestToSources { it.requestDayForecast(id) }
 
     private fun todayTimeSpan() = System.currentTimeMillis() / DAY_IN_MILLIS * DAY_IN_MILLIS
